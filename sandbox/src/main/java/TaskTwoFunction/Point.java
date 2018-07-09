@@ -4,7 +4,7 @@ public class Point {
 
     double x,y;
 
-    Point (int х, int у) {
+    Point (double х, double у) {
         this.x = х;
         this.y = у;
     }
