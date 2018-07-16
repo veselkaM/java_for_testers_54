@@ -1,46 +1,17 @@
-package ru.stqa.pft.addressbook;
+package ru.stqa.pft.addressbook.appmanager;
 
-import org.openqa.selenium.firefox.FirefoxOptions;
-import org.testng.annotations.BeforeMethod;
-import org.testng.annotations.AfterMethod;
-import org.testng.annotations.Test;
-
-import java.util.concurrent.TimeUnit;
-
+import org.openqa.selenium.By;
 import org.openqa.selenium.firefox.FirefoxDriver;
-import org.openqa.selenium.*;
+import ru.stqa.pft.addressbook.models.ContactData;
 
-public class AddNewContactTests {
-    FirefoxDriver wd;
-    
-    @BeforeMethod
-    public void setUp() throws Exception {
-        wd = new FirefoxDriver(new FirefoxOptions().setLegacy(true));
-        wd.manage().timeouts().implicitlyWait(60, TimeUnit.SECONDS);
-        wd.get("http://localhost/addressbook/");
-        login("admin", "secret");
+public class ContactHelper {
+    private FirefoxDriver wd;
+
+    public ContactHelper(FirefoxDriver wd) {
+        this.wd = wd;
     }
 
-    private void login(String username, String password) {
-        wd.findElement(By.name("user")).click();
-        wd.findElement(By.name("user")).clear();
-        wd.findElement(By.name("user")).sendKeys(username);
-        wd.findElement(By.name("pass")).click();
-        wd.findElement(By.name("pass")).clear();
-        wd.findElement(By.name("pass")).sendKeys(password);
-        wd.findElement(By.xpath("//form[@id='LoginForm']/input[3]")).click();
-    }
-
-    
-    @Test
-    public void testAddNewContact() {
-        goToAddAddressBookPage();
-        fillAddContactForm(new ContactData("Test01", "Test02", "Test03", "Null", "Appy", "Moscow", "89165634156", "home", "dar.lobowa@yandex.ru", "notes_here"));
-        submitAddNewContact();
-        returnToHomePage();
-    }
-
-    private void fillAddContactForm(ContactData contactData) {
+    public void fillAddContactForm(ContactData contactData) {
         wd.findElement(By.name("firstname")).click();
         wd.findElement(By.name("firstname")).clear();
         wd.findElement(By.name("firstname")).sendKeys(contactData.getFirstname());
@@ -73,30 +44,11 @@ public class AddNewContactTests {
         wd.findElement(By.name("notes")).sendKeys(contactData.getNotes());
     }
 
-
-    private void submitAddNewContact() {
+    public void submitAddNewContact() {
         wd.findElement(By.xpath("//div[@id='content']/form/input[21]")).click();
     }
 
-    private void returnToHomePage() {
+    public void returnToHomePage() {
         wd.findElement(By.linkText("home page")).click();
-    }
-
-    private void goToAddAddressBookPage() {
-        wd.findElement(By.linkText("add new")).click();
-    }
-
-    @AfterMethod
-    public void tearDown() {
-        wd.quit();
-    }
-    
-    public static boolean isAlertPresent(FirefoxDriver wd) {
-        try {
-            wd.switchTo().alert();
-            return true;
-        } catch (NoAlertPresentException e) {
-            return false;
-        }
     }
 }
