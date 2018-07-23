@@ -1,11 +1,11 @@
 package ru.stqa.pft.addressbook.appmanager;
 
 import org.openqa.selenium.By;
-import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.WebDriver;
 
 public class SessionHalper extends HelperBase {
 
-    public SessionHalper(FirefoxDriver wd) {
+    public SessionHalper(WebDriver wd) {
         super(wd);
     }
 
