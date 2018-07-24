@@ -1,12 +1,11 @@
 package ru.stqa.pft.addressbook.appmanager;
 
 import org.openqa.selenium.By;
-import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.remote.BrowserType;
 import org.openqa.selenium.support.ui.Select;
 import org.testng.Assert;
 import ru.stqa.pft.addressbook.models.ContactData;
+
 
 public class ContactHelper extends HelperBase {
 
@@ -68,5 +67,15 @@ public class ContactHelper extends HelperBase {
 
     public void initContactDetails() {
         click(By.xpath("//table[@id='maintable']/tbody/tr[2]/td[7]/a/img"));
+    }
+
+    public void createContact (ContactData contact, boolean creation) {
+        fillAddContactForm(contact, creation);
+        submitAddNewContact();
+        returnToHomePage();
+    }
+
+    public boolean isThereAContact() {
+        return isElementPresent(By.name("selected[]"));
     }
 }
