@@ -27,7 +27,7 @@ public class ContactHelper extends HelperBase {
         if (creation) {
             new Select(wd.findElement(By.name("new_group"))).selectByVisibleText(contactData.getGroup());
         } else {
-            Assert.assertFalse(isElementPresent(By.name("name_group")));
+            Assert.assertFalse(isElementPresent(By.name("new_group")));
         }
 
         type(By.name("notes"), contactData.getNotes());
@@ -41,8 +41,8 @@ public class ContactHelper extends HelperBase {
         click(By.linkText("home page"));
     }
 
-    public void selectContact() {
-        click(By.name("selected[]"));
+    public void selectContact(int index) {
+        wd.findElements(By.name("selected[]")).get(index).click();
     }
 
     public void deleteSelectedContact() {
@@ -69,7 +69,7 @@ public class ContactHelper extends HelperBase {
         click(By.xpath("//table[@id='maintable']/tbody/tr[2]/td[7]/a/img"));
     }
 
-    public void createContact (ContactData contact, boolean creation) {
+    public void createContact(ContactData contact, boolean creation) {
         fillAddContactForm(contact, creation);
         submitAddNewContact();
         returnToHomePage();
@@ -77,5 +77,9 @@ public class ContactHelper extends HelperBase {
 
     public boolean isThereAContact() {
         return isElementPresent(By.name("selected[]"));
+    }
+
+    public int getContactCount() {
+        return wd.findElements(By.name("selected[]")).size();
     }
 }
