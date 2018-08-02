@@ -4,8 +4,7 @@ import java.util.Objects;
 
 public class ContactData {
 
-
-    private final String id;
+    private int id;
     private final String  firstname;
     private final String middlename;
     private final String lastname;
@@ -19,7 +18,7 @@ public class ContactData {
     private final String notes;
 
     public ContactData(String firstname, String middlename, String lastname, String nickname, String company, String address, String mobile, String work, String email, String group, String notes) {
-        this.id = null;
+        this.id = Integer.MAX_VALUE;
         this.firstname = firstname;
         this.middlename = middlename;
         this.lastname = lastname;
@@ -33,7 +32,7 @@ public class ContactData {
         this.notes = notes;
     }
 
-    public ContactData(String id, String firstname, String middlename, String lastname, String nickname, String company, String address, String mobile, String work, String email, String group, String notes) {
+    public ContactData(int id, String firstname, String middlename, String lastname, String nickname, String company, String address, String mobile, String work, String email, String group, String notes) {
         this.id = id;
         this.firstname = firstname;
         this.middlename = middlename;
@@ -48,7 +47,11 @@ public class ContactData {
         this.notes = notes;
     }
 
-    public String getId() { return id; }
+    public int getId() { return id; }
+
+    public void setId(int id) {
+        this.id = id;
+    }
 
     public String getFirstname() {
         return firstname;
@@ -82,6 +85,7 @@ public class ContactData {
         return work;
     }
 
+
     public String getEmail() {
         return email;
     }
@@ -108,14 +112,14 @@ public class ContactData {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         ContactData that = (ContactData) o;
-        return Objects.equals(id, that.id) &&
-                Objects.equals(firstname, that.firstname) &&
+        return Objects.equals(firstname, that.firstname) &&
                 Objects.equals(lastname, that.lastname);
     }
 
     @Override
     public int hashCode() {
 
-        return Objects.hash(id, firstname, lastname);
+        return Objects.hash(firstname, lastname);
     }
+
 }
