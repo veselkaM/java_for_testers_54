@@ -6,6 +6,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
 import org.testng.Assert;
 import ru.stqa.pft.addressbook.models.ContactData;
+import ru.stqa.pft.addressbook.models.GroupData;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -49,6 +50,11 @@ public class ContactHelper extends HelperBase {
 
     public void selectContact(int index) {
         wd.findElements(By.name("selected[]")).get(index).click();
+    }
+
+    public void selectContactById(int id) {
+
+        wd.findElement(By.cssSelector("input[value='" + id + "']")).click();
     }
 
     public void deleteSelectedContact() {
@@ -98,6 +104,12 @@ public class ContactHelper extends HelperBase {
 
     public void delete(int index) {
         selectContact(index);
+        deleteSelectedContact();
+        acceptDeleteSelectedContact();
+    }
+
+    public void delete(ContactData contact) {
+        selectContactById(contact.getId());
         deleteSelectedContact();
         acceptDeleteSelectedContact();
     }
