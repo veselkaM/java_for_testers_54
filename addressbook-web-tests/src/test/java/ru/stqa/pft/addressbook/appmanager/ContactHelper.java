@@ -8,9 +8,7 @@ import org.testng.Assert;
 import ru.stqa.pft.addressbook.models.ContactData;
 import ru.stqa.pft.addressbook.models.Contacts;
 
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 
 public class ContactHelper extends HelperBase {
@@ -79,6 +77,7 @@ public class ContactHelper extends HelperBase {
     public void create(ContactData contact, boolean creation) {
         fillAddContactForm(contact, creation);
         submitAddNewContact();
+        contactCache = null;
         returnToHomePage();
     }
 
@@ -86,6 +85,7 @@ public class ContactHelper extends HelperBase {
         initContactEditById(contact.getId());
         fillAddContactForm(contact, false);
         submitContactModification();
+        contactCache = null;
         returnToHomePage();
     }
 
@@ -94,6 +94,7 @@ public class ContactHelper extends HelperBase {
         initContactModificationFromDetails();
         fillAddContactForm(contact, false);
         submitContactModification();
+        contactCache = null;
         returnToHomePage();
     }
 
@@ -101,19 +102,26 @@ public class ContactHelper extends HelperBase {
         selectContactById(contact.getId());
         deleteSelectedContact();
         acceptDeleteSelectedContact();
+        contactCache = null;
     }
 
+    private Contacts contactCache = null;
+
     public Contacts all() {
-        Contacts contacts = new Contacts();
+        if (contactCache != null){
+            return new Contacts(contactCache);
+        }
+
+        contactCache = new Contacts();
         List<WebElement> elements = wd.findElements(By.xpath("//tr[@name='entry']"));
         for (WebElement element : elements) {
             List<WebElement> contactEntries = element.findElements(By.cssSelector("td"));
             String firstName = contactEntries.get(2).getText();
             String lastName = contactEntries.get(1).getText();
             int id = Integer.parseInt(element.findElement(By.tagName("input")).getAttribute("value"));
-            contacts.add(new ContactData().withId(id).withFirstname(firstName).withLastname(lastName));
+            contactCache.add(new ContactData().withId(id).withFirstname(firstName).withLastname(lastName));
         }
-        return contacts;
+        return new Contacts(contactCache);
     }
 
 
