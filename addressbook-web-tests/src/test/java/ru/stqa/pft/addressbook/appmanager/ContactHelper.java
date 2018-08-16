@@ -32,11 +32,12 @@ public class ContactHelper extends HelperBase {
         type(By.name("email3"), contactData.getEmailThree());
         attach(By.name("photo"), contactData.getPhoto());
 
+        /*
         if (creation) {
             new Select(wd.findElement(By.name("new_group"))).selectByVisibleText(contactData.getGroup());
         } else {
             Assert.assertFalse(isElementPresent(By.name("new_group")));
-        }
+        } */
 
         type(By.name("notes"), contactData.getNotes());
     }
@@ -82,8 +83,8 @@ public class ContactHelper extends HelperBase {
         return wd.findElements(By.name("selected[]")).size();
     }
 
-    public void create(ContactData contact, boolean creation) {
-        fillAddContactForm(contact, creation);
+    public void create(ContactData contact) {
+        fillAddContactForm(contact, true);
         submitAddNewContact();
         contactCache = null;
         returnToHomePage();

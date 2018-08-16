@@ -2,13 +2,11 @@
   {
     "firstname": "first_name_0",
     "lastname": "last_name_0",
-    "address": "address_0",
-    "group": "name_0"
+    "address": "address_0"
   },
   {
     "firstname": "first_name_1",
     "lastname": "last_name_1",
-    "address": "address_1",
-    "group": "name_1"
+    "address": "address_1"
   }
 ]
