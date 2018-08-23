@@ -1,4 +1,4 @@
-apply plugin:'java'
+apply plugin: 'java'
 
 repositories {
     mavenCentral()
@@ -16,7 +16,7 @@ dependencies {
     compile 'org.hibernate:hibernate-core:5.1.0.Final'
 }
 
-task testGroups(type: Test){
+task testGroups(type: Test) {
     useTestNG {
         suites 'src/test/resources/testing-groups.xml'
     }
@@ -26,10 +26,13 @@ task testGroups(type: Test){
     if (project.hasProperty('target')) {
         systemProperty("target", "${target}")
     }
+    if (project.hasProperty('verifyUI')) {
+        systemProperty("verifyUI", "${verifyUI}")
+    }
 }
 
 
-task testContacts(type: Test){
+task testContacts(type: Test) {
     useTestNG {
         suites 'src/test/resources/testing-contacts.xml'
     }
@@ -38,5 +41,8 @@ task testContacts(type: Test){
     }
     if (project.hasProperty('target')) {
         systemProperty("target", "${target}")
+    }
+    if (project.hasProperty('verifyUI')) {
+        systemProperty("verifyUI", "${verifyUI}")
     }
 }
