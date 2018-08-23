@@ -27,9 +27,8 @@ public class ContactModificationFromDetailsTests extends TestBase {
     public void testContactModificationFromDetails() {
         Contacts before = app.db().contacts();
         ContactData modifiedContact = before.iterator().next();
-        File photo = new File("src/test/resources/BSFQ9517.jpg");
         ContactData contact = new ContactData()
-                .withId(modifiedContact.getId()).withFirstname("такое себе").withLastname("почему").withWorkPhone("Appy puppy").withAddress("Bali").withMobilePhone("891656341X6").withPhoto(photo);
+                .withId(modifiedContact.getId()).withFirstname("такое себе").withLastname("почему").withWorkPhone("Appy puppy").withAddress("Bali").withMobilePhone("891656341X6");
         app.contact().modifyFromDetails(contact);
         assertEquals(app.contact().count(),before.size());
         Contacts after = app.db().contacts();

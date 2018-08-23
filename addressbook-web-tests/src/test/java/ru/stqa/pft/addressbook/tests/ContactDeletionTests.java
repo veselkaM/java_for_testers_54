@@ -18,8 +18,7 @@ public class ContactDeletionTests extends TestBase {
         if (app.db().contacts().size() == 0) {
             app.goTo().home();
             app.goTo().add();
-            File photo = new File("src/test/resources/BSFQ9517.jpg");
-            app.contact().create(new ContactData().withFirstname("Test01").withLastname("Test02").withAddress("Moscow").withMobilePhone("89165634156").withEmailOne("dar.lobowa@yandex.ru").withGroup("new_group").withPhoto(photo));
+            app.contact().create(new ContactData().withFirstname("Test01").withLastname("Test02").withAddress("Moscow").withMobilePhone("89165634156").withEmailOne("dar.lobowa@yandex.ru").withGroup("new_group"));
         }
     }
     
