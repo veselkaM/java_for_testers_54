@@ -3,6 +3,9 @@ package ru.stqa.pft.addressbook.tests;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.thoughtworks.xstream.XStream;
+import org.hibernate.annotations.common.util.impl.LoggerFactory;
+import org.jboss.logging.Logger;
+import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 import ru.stqa.pft.addressbook.models.GroupData;
@@ -32,7 +35,9 @@ public class GroupCreationTests extends TestBase {
             List<GroupData> groups = gson.fromJson(json, new TypeToken<List<GroupData>>() {
             }.getType());
             return groups.stream().map((g) -> new Object[]{g}).collect(Collectors.toList()).iterator();
+
         }
+
     }
 
 
@@ -68,24 +73,23 @@ public class GroupCreationTests extends TestBase {
 
     @Test (dataProvider = "validGroupsFromJson")
     public void testGroupCreation(GroupData group) {
+        Groups before = app.db().groups();
         app.goTo().groupPage();
-        Groups before = app.group().all();
         app.group().create(group);
         assertThat(app.group().count(),equalTo (before.size()+1));
-        Groups after = app.group().all();
-
+        Groups after = app.db().groups();
         assertThat(after, equalTo(
                 before.withAdded(group.withId(after.stream().mapToInt((g) -> g.getId()).max().getAsInt()))));
     }
 
     @Test
     public void testGroupBadCreation() {
-        app.goTo().groupPage();
-        Groups before = app.group().all();
+        Groups before = app.db().groups();
         GroupData group = new GroupData().withName("tester12'");
+        app.goTo().groupPage();
         app.group().create(group);
         assertThat(app.group().count(),equalTo (before.size()));
-        Groups after = app.group().all();
+        Groups after = app.db().groups();
         assertThat(after, equalTo(before));
     }
 

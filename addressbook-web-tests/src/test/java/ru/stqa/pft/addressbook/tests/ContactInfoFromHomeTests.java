@@ -14,8 +14,8 @@ public class ContactInfoFromHomeTests extends TestBase {
 
     @BeforeMethod
     public void ensurePreconditions() {
-        app.goTo().home();
-        if (app.contact().all().size() == 0) {
+        if (app.db().contacts().size() == 0) {
+            app.goTo().home();
             app.goTo().add();
             app.contact().create(new ContactData()
                     .withFirstname("Test01").withLastname("Test02").withAddress("Moscow").withGroup("new_group")
