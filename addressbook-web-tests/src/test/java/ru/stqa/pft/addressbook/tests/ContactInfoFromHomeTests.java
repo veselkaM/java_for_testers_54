@@ -18,7 +18,7 @@ public class ContactInfoFromHomeTests extends TestBase {
             app.goTo().home();
             app.goTo().add();
             app.contact().create(new ContactData()
-                    .withFirstname("Test01").withLastname("Test02").withAddress("Moscow").withGroup("new_group")
+                    .withFirstname("Test01").withLastname("Test02").withAddress("Moscow")
                     .withHomePhone("828 929").withMobilePhone("89165634156").withWorkPhone("8-2-2")
                     .withEmailOne("dar.lobowa@yandex.ru").withEmailTwo("tsh@mail.ru").withEmailThree("oodjsjj89@ru"));
         }
