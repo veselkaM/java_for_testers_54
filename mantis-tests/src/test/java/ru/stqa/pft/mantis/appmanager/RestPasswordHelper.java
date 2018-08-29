@@ -1,6 +1,7 @@
 package ru.stqa.pft.mantis.appmanager;
 
 import org.openqa.selenium.By;
+import ru.stqa.pft.mantis.models.AccountData;
 
 public class RestPasswordHelper extends HelperBase {
     public RestPasswordHelper(ApplicationManager app) {
@@ -15,8 +16,8 @@ public class RestPasswordHelper extends HelperBase {
         wd.get(app.getProperty("web.baseUrl") + "/manage_user_page.php");
     }
 
-    public void selectAccount (String account) {
-        click(By.xpath("//a[text()='" + account + "']"));
+    public void selectAccount (AccountData account) {
+        click(By.xpath("//a[text()='" + account.getUsername() + "']"));
     }
 
     public void restPassword(){

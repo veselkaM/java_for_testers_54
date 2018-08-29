@@ -10,7 +10,7 @@ import java.util.List;
 
 import static org.testng.Assert.assertTrue;
 
-public class JamesRegistrationTests extends TestBase {
+public class RegistrationTests extends TestBase {
 
     //@BeforeMethod
     public void startMailServer() {

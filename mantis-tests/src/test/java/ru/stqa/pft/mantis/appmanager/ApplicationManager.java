@@ -22,6 +22,7 @@ public class ApplicationManager {
     private MailHelper mailHelper;
     private JamesHelper jamesHelper;
     private RestPasswordHelper restPasswordHelper;
+    private DbHalper dbHalper;
 
     public ApplicationManager(String browser) {
         this.browser = browser;
@@ -32,6 +33,7 @@ public class ApplicationManager {
     public void init() throws IOException {
         String target = System.getProperty("target", "local");
         properties.load(new FileReader(new File(String.format("src/test/resources/%s.properties", target))));
+        dbHalper = new DbHalper();
     }
 
     public void stop() {
@@ -62,25 +64,25 @@ public class ApplicationManager {
         return restPasswordHelper;
     }
 
-    public FtpHelper ftp () {
+    public FtpHelper ftp() {
         if (ftp == null) {
             ftp = new FtpHelper(this);
         }
         return ftp;
     }
 
-    public MailHelper mail () {
+    public MailHelper mail() {
         if (mailHelper == null) {
             mailHelper = new MailHelper(this);
         }
         return mailHelper;
     }
 
-    public JamesHelper james () {
+    public JamesHelper james() {
         if (jamesHelper == null) {
-            jamesHelper  = new JamesHelper(this);
+            jamesHelper = new JamesHelper(this);
         }
-        return jamesHelper ;
+        return jamesHelper;
     }
 
     public WebDriver getDriver() {
@@ -98,5 +100,7 @@ public class ApplicationManager {
         return wd;
     }
 
-    
+    public DbHalper db() {
+        return dbHalper;
+    }
 }

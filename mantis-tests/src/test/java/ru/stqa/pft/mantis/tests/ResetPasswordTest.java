@@ -4,6 +4,8 @@ import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import ru.lanwen.verbalregex.VerbalExpression;
+import ru.stqa.pft.mantis.models.AccountData;
+import ru.stqa.pft.mantis.models.Accounts;
 import ru.stqa.pft.mantis.models.MailMessage;
 
 import javax.mail.MessagingException;
@@ -15,17 +17,18 @@ import static org.testng.Assert.assertTrue;
 public class ResetPasswordTest extends TestBase {
 
     @BeforeMethod
-    public void startMailServer(){
+    public void startMailServer() {
         app.mail().start();
     }
 
     @Test
-    public void testRestPassword () throws IOException, MessagingException {
-        String user = "user22";
-        String newPassword = "testik";
-        String email = "user22@mail.ru";
+    public void testRestPassword() throws IOException, MessagingException {
+        AccountData account = app.db().accounts().iterator().next();
+        String user = account.getUsername();
+        String email = account.getEmail();
+        String newPassword = "tester";
         app.restPassword().start("administrator", "root");
-        app.restPassword().selectAccount(user);
+        app.restPassword().selectAccount(account);
         app.restPassword().restPassword();
         List<MailMessage> mailMessages = app.mail().waitForMail(1, 10000);
         String conformationLink = findeConformationLink(mailMessages, email);
@@ -41,7 +44,7 @@ public class ResetPasswordTest extends TestBase {
     }
 
     @AfterMethod(alwaysRun = true)
-    public void stopMailServer(){
+    public void stopMailServer() {
         app.mail().stop();
     }
 }
