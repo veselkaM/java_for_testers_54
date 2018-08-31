@@ -8,8 +8,10 @@ import ru.stqa.pft.addressbook.models.Groups;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.hasItem;
+import static org.hamcrest.Matchers.not;
 
-public class AddContactToGroup extends TestBase {
+public class RemoveContactFromGroup extends TestBase {
+
 
     @BeforeMethod
     public void ensurePreconditions() {
@@ -25,21 +27,23 @@ public class AddContactToGroup extends TestBase {
     }
 
     @Test
-    public void addToGroup() {
+    public void removeContactFromGroupTests() {
+
         ContactData contact = app.db().contacts().iterator().next();
         Groups allGroups = app.db().groups();
-        GroupData addedGroup = allGroups.iterator().next();
+        GroupData removedGroup = allGroups.iterator().next();
 
-        if (allGroups.equals(contact.getGroups())) {
-            app.contact().removeFromGroup(contact, addedGroup);
+        if (!removedGroup.equals(contact.getGroups())) {
+            app.contact().addToGroup(contact, removedGroup);
         }
 
         allGroups.removeAll(contact.getGroups());
         app.goTo().home();
-        app.contact().addToGroup(contact, addedGroup);
+        app.contact().removeFromGroup(contact, removedGroup);
         app.db().refresh(contact);
 
-        assertThat(contact.getGroups(), hasItem(addedGroup));
+        assertThat(contact.getGroups(), not(hasItem(removedGroup)));
 
     }
 }
+

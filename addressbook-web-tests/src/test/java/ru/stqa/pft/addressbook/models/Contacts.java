@@ -39,6 +39,5 @@ public class Contacts extends ForwardingSet<ContactData> {
         Contacts contacts = new Contacts(this);
         contacts.remove(contact);
         return contacts;
-
     }
 }

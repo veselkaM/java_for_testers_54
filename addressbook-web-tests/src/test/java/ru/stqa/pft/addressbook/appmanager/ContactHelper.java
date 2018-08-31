@@ -7,6 +7,7 @@ import org.openqa.selenium.support.ui.Select;
 import org.testng.Assert;
 import ru.stqa.pft.addressbook.models.ContactData;
 import ru.stqa.pft.addressbook.models.Contacts;
+import ru.stqa.pft.addressbook.models.GroupData;
 
 import java.util.List;
 
@@ -35,14 +36,14 @@ public class ContactHelper extends HelperBase {
 //        attach(By.name("photo"), contactData.getPhoto());
 
 
-        if (creation) {
+  /*      if (creation) {
             if (contactData.getGroups().size() > 0) {
                 Assert.assertTrue(contactData.getGroups().size() == 1);
                 new Select(wd.findElement(By.name("new_group"))).selectByVisibleText(contactData.getGroups().iterator().next().getName());
             } else {
                 Assert.assertFalse(isElementPresent(By.name("new_group")));
             }
-        }
+        } */
 
         type(By.name("notes"), contactData.getNotes());
     }
@@ -59,14 +60,24 @@ public class ContactHelper extends HelperBase {
         wd.findElement(By.cssSelector("input[value='" + id + "']")).click();
     }
 
-    public void addToGroup () {
+    public void addToGroup (ContactData contact, GroupData group) {
+        selectGroupFromList("[all]", "group");
+        selectContactById(contact.getId());
+        selectGroupFromList(group.getName(), "to_group");
         click(By.name("add"));
     }
 
-    public void add(ContactData contact) {
+    public void removeFromGroup (ContactData contact, GroupData group) {
+        selectGroupFromList("[all]", "group");
+        selectGroupFromList(group.getName(), "group");
         selectContactById(contact.getId());
-        addToGroup();
+        click(By.name("remove"));
     }
+
+    public void selectGroupFromList(String group, String element) {
+        new Select(wd.findElement(By.name(element))).selectByVisibleText(group);
+    }
+
 
     public void deleteSelectedContact() {
         click(By.xpath("//div[@id='content']/form[2]/div[2]/input"));
@@ -169,6 +180,16 @@ public class ContactHelper extends HelperBase {
                 .withEmailOne(email).withEmailTwo(email2).withEmailThree(email3);
 
 
+    }
+
+    public ContactData contactFromList(Contacts contactsAfter, int id) {
+        ContactData contactFromList = new ContactData();
+        for (ContactData c : contactsAfter) {
+            if (c.getId() == id) {
+                contactFromList  = c;
+            }
+        }
+        return contactFromList;
     }
 }
 
