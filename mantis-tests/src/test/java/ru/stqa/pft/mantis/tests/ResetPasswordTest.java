@@ -5,11 +5,8 @@ import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import ru.lanwen.verbalregex.VerbalExpression;
 import ru.stqa.pft.mantis.models.AccountData;
-import ru.stqa.pft.mantis.models.Accounts;
 import ru.stqa.pft.mantis.models.MailMessage;
 
-import javax.mail.MessagingException;
-import java.io.IOException;
 import java.util.List;
 
 import static org.testng.Assert.assertTrue;
@@ -22,14 +19,14 @@ public class ResetPasswordTest extends TestBase {
     }
 
     @Test
-    public void testRestPassword() throws IOException, MessagingException {
-        AccountData account = app.db().accounts().iterator().next();
+    public void testRestPassword() throws Exception {
+        int adminId = app.db().accounts().stream().filter((p) -> p.getUsername().equals("administrator")).iterator().next().getId();
+        AccountData account = app.db().accounts().stream().filter((p) -> p.getId() != adminId).iterator().next();
         String user = account.getUsername();
         String email = account.getEmail();
         String newPassword = "tester";
-        app.restPassword().start("administrator", "root");
-        app.restPassword().selectAccount(account);
-        app.restPassword().restPassword();
+        app.loginHelper().loginWeb("administrator", "root");
+        app.restPassword().start(account);
         List<MailMessage> mailMessages = app.mail().waitForMail(1, 10000);
         String conformationLink = findeConformationLink(mailMessages, email);
         app.restPassword().finish(conformationLink, newPassword);

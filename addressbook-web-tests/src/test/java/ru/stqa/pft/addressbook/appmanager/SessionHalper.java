@@ -3,6 +3,8 @@ package ru.stqa.pft.addressbook.appmanager;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 
+import static java.lang.System.getProperty;
+
 public class SessionHalper extends HelperBase {
 
     public SessionHalper(WebDriver wd) {
@@ -10,8 +12,9 @@ public class SessionHalper extends HelperBase {
     }
 
     public void login(String username, String password) {
-        type(By.name("user"), username);
-        type(By.name("pass"), password);
-        click(By.xpath("//form[@id='LoginForm']/input[3]"));
+        wd.get(getProperty("web.baseUrl") + "/login_page.php");
+        type(By.name("username"), username);
+        type(By.name("password"), password);
+        click(By.cssSelector("input[value='Login']"));
     }
 }

@@ -26,5 +26,11 @@ public class Accounts extends ForwardingSet<AccountData> {
         return delegate;
     }
 
+    public Accounts without(AccountData account) {
+        Accounts accounts = new Accounts(this);
+        accounts.remove(accounts);
+        return accounts;
+    }
+
     }
 

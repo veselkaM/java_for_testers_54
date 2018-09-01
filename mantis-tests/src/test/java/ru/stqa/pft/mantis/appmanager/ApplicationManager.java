@@ -23,10 +23,12 @@ public class ApplicationManager {
     private JamesHelper jamesHelper;
     private RestPasswordHelper restPasswordHelper;
     private DbHalper dbHalper;
+    private LoginHalper loginHelper;
 
     public ApplicationManager(String browser) {
         this.browser = browser;
         properties = new Properties();
+
 
     }
 
@@ -69,6 +71,13 @@ public class ApplicationManager {
             ftp = new FtpHelper(this);
         }
         return ftp;
+    }
+
+    public LoginHalper loginHelper() throws Exception {
+        if (loginHelper == null) {
+            loginHelper = new LoginHalper(this);
+        }
+        return  loginHelper;
     }
 
     public MailHelper mail() {

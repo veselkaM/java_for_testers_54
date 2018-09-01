@@ -8,19 +8,10 @@ public class RestPasswordHelper extends HelperBase {
         super(app);
     }
 
-    public void start(String username, String password) {
-        wd.get(app.getProperty("web.baseUrl") + "/login_page.php");
-        type(By.name("username"), username);
-        type(By.name("password"), password);
-        click(By.cssSelector("input[value='Login']"));
+
+    public void start(AccountData account) {
         wd.get(app.getProperty("web.baseUrl") + "/manage_user_page.php");
-    }
-
-    public void selectAccount (AccountData account) {
         click(By.xpath("//a[text()='" + account.getUsername() + "']"));
-    }
-
-    public void restPassword(){
         click(By.cssSelector("input[value='Reset Password']"));
     }
 
