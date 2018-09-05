@@ -35,7 +35,7 @@
         <property name="hbm2ddl.auto">validate</property>
 
         <!-- Names the annotated entity class -->
-        <mapping class="ru.stqa.pft.mantis.models.AccountData"/>
+        <mapping class="ru.stqa.pft.rest.mantis.models.AccountData"/>
 
     </session-factory>
 
