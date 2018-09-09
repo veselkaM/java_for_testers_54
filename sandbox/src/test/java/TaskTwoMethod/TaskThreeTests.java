@@ -9,7 +9,7 @@ public class TaskThreeTests {
     public void testDistancePassed () {
         Point p1 = new Point(10,36.92);
         Point p2 = new Point(10,0.92);
-        Assert.assertEquals(p1.distance(p2),999.0);
+        Assert.assertEquals(p1.distance(p2),36.0);
 
     }
 
