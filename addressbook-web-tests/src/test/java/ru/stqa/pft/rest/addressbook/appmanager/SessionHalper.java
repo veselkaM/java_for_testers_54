@@ -12,9 +12,8 @@ public class SessionHalper extends HelperBase {
     }
 
     public void login(String username, String password) {
-        wd.get(getProperty("web.baseUrl") + "/login_page.php");
-        type(By.name("username"), username);
-        type(By.name("password"), password);
-        click(By.cssSelector("input[value='Login']"));
+        type(By.name("user"), username);
+        type(By.name("pass"), password);
+        click(By.xpath("//form[@id='LoginForm']/input[3]"));
     }
 }
