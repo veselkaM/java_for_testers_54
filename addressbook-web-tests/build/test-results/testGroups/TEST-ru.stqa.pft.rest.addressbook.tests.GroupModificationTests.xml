@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="ru.stqa.pft.rest.addressbook.tests.GroupModificationTests" tests="1" skipped="0" failures="0" errors="0" timestamp="2018-09-09T19:22:49" hostname="LAPTOP-VA26MCEB" time="1.174">
+  <properties/>
+  <testcase name="testGroupModification" classname="ru.stqa.pft.rest.addressbook.tests.GroupModificationTests" time="1.174"/>
+  <system-out><![CDATA[22:22:48.798 [Test worker] INFO  r.s.p.r.addressbook.tests.TestBase - Start testtestGroupModification with parameters []
+22:22:48.868 [Test worker] INFO  o.h.h.i.QueryTranslatorFactoryInitiator - HHH000397: Using ASTQueryTranslatorFactory
+Hibernate: select groupdata0_.group_id as group_id1_2_, groupdata0_.group_footer as group_fo2_2_, groupdata0_.group_header as group_he3_2_, groupdata0_.group_name as group_na4_2_ from group_list groupdata0_
+Hibernate: select groupdata0_.group_id as group_id1_2_, groupdata0_.group_footer as group_fo2_2_, groupdata0_.group_header as group_he3_2_, groupdata0_.group_name as group_na4_2_ from group_list groupdata0_
+Hibernate: select groupdata0_.group_id as group_id1_2_, groupdata0_.group_footer as group_fo2_2_, groupdata0_.group_header as group_he3_2_, groupdata0_.group_name as group_na4_2_ from group_list groupdata0_
+]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>
