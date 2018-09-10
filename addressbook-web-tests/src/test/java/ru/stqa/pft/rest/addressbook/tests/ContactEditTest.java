@@ -17,12 +17,13 @@ public class ContactEditTest extends TestBase {
         if (app.db().contacts().size() == 0) {
             app.goTo().home();
             app.goTo().add();
-            app.contact().create(new ContactData().withFirstname("Test01").withLastname("Test02").withAddress("Moscow").withMobilePhone("89165634156").withEmailOne("dar.lobowa@yandex.ru"));
+            app.contact().create(new ContactData().withFirstname("Testik01").withLastname("Testik02").withAddress("Moscow").withMobilePhone("89165634156").withEmailOne("dar.lobowa@yandex.ru"));
         }
     }
 
     @Test
     public void testContactEdit() {
+        app.goTo().home();
         Contacts before = app.db().contacts();
         ContactData editedContact = before.iterator().next();
         ContactData contact = new ContactData()

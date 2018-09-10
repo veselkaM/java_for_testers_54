@@ -22,7 +22,7 @@ public class RemoveContactFromGroup extends TestBase {
         }
         if (app.db().groups().size() == 0) {
             app.goTo().groupPage();
-            app.group().create(new GroupData().withName("17 раз"));
+            app.group().create(new GroupData().withName("18 раз"));
         }
     }
 
@@ -34,6 +34,7 @@ public class RemoveContactFromGroup extends TestBase {
         GroupData removedGroup = allGroups.iterator().next();
 
         if (!removedGroup.equals(contact.getGroups())) {
+            app.goTo().home();
             app.contact().addToGroup(contact, removedGroup);
         }
 

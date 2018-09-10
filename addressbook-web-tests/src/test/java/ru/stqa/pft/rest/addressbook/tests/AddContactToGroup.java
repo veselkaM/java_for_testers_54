@@ -31,6 +31,7 @@ public class AddContactToGroup extends TestBase {
         GroupData addedGroup = allGroups.iterator().next();
 
         if (allGroups.equals(contact.getGroups())) {
+            app.goTo().home();
             app.contact().removeFromGroup(contact, addedGroup);
         }
 

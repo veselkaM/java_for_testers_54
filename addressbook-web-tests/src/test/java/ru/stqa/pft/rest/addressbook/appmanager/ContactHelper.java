@@ -77,7 +77,6 @@ public class ContactHelper extends HelperBase {
         new Select(wd.findElement(By.name(element))).selectByVisibleText(group);
     }
 
-
     public void deleteSelectedContact() {
         click(By.xpath("//div[@id='content']/form[2]/div[2]/input"));
     }
