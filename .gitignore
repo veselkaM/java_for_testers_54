@@ -18,3 +18,4 @@ gradle-app.setting
 *.log
 addressbook-web-tests/test-20180823T203934.log
 *.log
+addressbook-web-tests/src/test/resources/BSFQ9517.jpg
